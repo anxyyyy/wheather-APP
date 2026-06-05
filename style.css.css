@@ -1,0 +1,372 @@
+/* --- Переменные и сброс стилей --- */
+:root {
+    --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); /* Дефолтный */
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --text-color: #2c3e50;
+    --text-muted: #5a6b7c;
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --blur: blur(12px);
+    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+[data-theme="dark"] {
+    --glass-bg: rgba(15, 22, 36, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-color: #f3f4f6;
+    --text-muted: #9ca3af;
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Градиенты погоды */
+.bg-clear { --bg-gradient: linear-gradient(135deg, #fcebc4 0%, #f99f1b 100%); }
+.bg-rain { --bg-gradient: linear-gradient(135deg, #616161 0%, #4b79a1 100%); }
+.bg-clouds { --bg-gradient: linear-gradient(135deg, #e0e0e0 0%, #b3cdd1 100%); }
+.bg-snow { --bg-gradient: linear-gradient(135deg, #e6f7ff 0%, #aecadb 100%); }
+.bg-night { --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: background 0.8s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* --- Контейнер приложения --- */
+.app-container {
+    width: 100%;
+    max-width: 650px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+/* --- Шапка --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.icon-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Поиск --- */
+.search-box {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    color: var(--text-color);
+    outline: none;
+    transition: var(--transition);
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-box input:focus {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+.search-box button {
+    background: var(--text-color);
+    color: var(--glass-bg);
+    border: none;
+    padding: 0 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.search-box button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* --- История поиска --- */
+.search-history {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.history-tag {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--glass-border);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.history-tag:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* --- Главная карточка --- */
+.main-card {
+    text-align: center;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 25px;
+    animation: fadeInScale 0.6s ease-out forwards;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.last-update {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.weather-main {
+    margin-top: 20px;
+}
+
+.weather-emoji {
+    font-size: 4.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.temp-container {
+    display: inline-block;
+}
+
+.temp {
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+.unit {
+    font-size: 1.8rem;
+    vertical-align: super;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+/* --- Сетка статистики --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: var(--transition);
+    animation: fadeInScale 0.6s ease-out forwards;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: var(--text-color);
+    background: rgba(255,255,255,0.2);
+    padding: 8px;
+    border-radius: 14px;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* --- Прогноз --- */
+.forecast-section h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.forecast-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
+    padding: 15px 10px;
+    border-radius: 18px;
+    text-align: center;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.forecast-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.forecast-day {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.forecast-emoji {
+    font-size: 1.8rem;
+    margin: 8px 0;
+    display: block;
+}
+
+.forecast-temp {
+    font-weight: 700;
+}
+
+/* --- Утилиты (Лоадер, Ошибки) --- */
+.hidden {
+    display: none !important;
+}
+
+.error-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 15px;
+    border-radius: 16px;
+    color: #b91c1c;
+    margin-bottom: 20px;
+}
+
+[data-theme="dark"] .error-box {
+    color: #fca5a5;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--text-color);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+/* --- Анимации --- */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- Адаптивность --- */
+@media (max-width: 550px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .forecast-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    .forecast-card:nth-child(4), .forecast-card:nth-child(5) {
+        display: none; /* Прячем 4-й и 5-й день на совсем мелких экранах ради эстетики */
+    }
+    .app-container {
+        padding: 20px;
+    }
+}
